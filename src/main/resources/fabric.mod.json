@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "patience",
+  "version": "${version}",
+  "name": "Patience",
+  "description": "${description}",
+  "authors": [
+    "etherested"
+  ],
+  "license": "All Rights Reserved",
+  "icon": "icon.png",
+  "contact": {
+    "homepage": "https://github.com/etherested/patience",
+    "issues": "https://github.com/etherested/patience/issues",
+    "sources": "https://github.com/etherested/patience"
+  },
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "etherested.patience.Patience"
+    ],
+    "client": [
+      "etherested.patience.client.PatienceFabricClient"
+    ],
+    "modmenu": [
+      "etherested.patience.client.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "patience.mixins.json",
+    "patience-fabric.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "cloth-config": "*"
+  }
+}

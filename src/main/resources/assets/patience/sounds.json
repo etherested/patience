@@ -1,0 +1,119 @@
+{
+  "crafting": {
+    "sounds": [
+      {
+        "name": "minecraft:block.wood.break",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.patience.crafting"
+  },
+  "finish": {
+    "sounds": [
+      {
+        "name": "minecraft:item.bundle.insert",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.patience.finish"
+  },
+  "smithing_table": {
+    "sounds": [
+      {
+        "name": "minecraft:block.copper.break",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.patience.smithing_table"
+  },
+  "anvil": {
+    "sounds": [
+      {
+        "name": "minecraft:block.heavy_core.break",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.patience.anvil"
+  },
+  "grindstone": {
+    "sounds": [
+      {
+        "name": "minecraft:item.axe.scrape",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.patience.grindstone"
+  },
+  "stonecutter": {
+    "sounds": [
+      {
+        "name": "minecraft:block.stone.break",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.patience.stonecutter"
+  },
+  "cartography_table": {
+    "sounds": [
+      {
+        "name": "minecraft:item.book.page_turn",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.patience.cartography_table"
+  },
+  "loom": {
+    "sounds": [
+      {
+        "name": "minecraft:block.wool.break",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.patience.loom"
+  },
+  "sawmill": {
+    "sounds": [
+      {
+        "name": "minecraft:block.cherry_wood.break",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.patience.sawmill"
+  },
+  "easel": {
+    "sounds": [
+      {
+        "name": "minecraft:item.dye.use",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.patience.easel"
+  },
+  "combustion_table": {
+    "sounds": [
+      {
+        "name": "minecraft:block.chain.hit",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.patience.combustion_table"
+  },
+  "pottery_table": {
+    "sounds": [
+      {
+        "name": "minecraft:block.decorated_pot.break",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.patience.pottery_table"
+  },
+  "sewing_table": {
+    "sounds": [
+      {
+        "name": "minecraft:item.wolf_armor.repair",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.patience.sewing_table"
+  }
+}
