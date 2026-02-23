@@ -4,6 +4,8 @@ plugins {
     id("dev.kikugie.stonecutter")
     id("net.neoforged.moddev") version "2.0.140" apply false
     id("fabric-loom") version "1.9-SNAPSHOT" apply false
+    id("com.modrinth.minotaur") version "2.+" apply false
+    id("net.darkhax.curseforgegradle") version "1.1.+" apply false
 }
 
 val modId: String by project
@@ -52,4 +54,32 @@ publishing {
             url = uri("file://${project.projectDir}/repo")
         }
     }
+}
+
+// publishing to Modrinth and CurseForge
+apply(plugin = "com.modrinth.minotaur")
+apply(plugin = "net.darkhax.curseforgegradle")
+
+val jarTask = if (loader == "fabric") tasks.named("remapJar") else tasks.named("jar")
+
+extensions.configure<com.modrinth.minotaur.ModrinthExtension> {
+    token.set(findProperty("MODRINTH_TOKEN") as String?)
+    projectId.set("patience")
+    versionNumber.set("$modVersion-$loader")
+    versionName.set("$modName $modVersion ($loader)")
+    versionType.set("release")
+    uploadFile.set(jarTask)
+    gameVersions.addAll(minecraftVersion)
+    loaders.add(loader)
+    changelog.set(rootProject.file("CHANGELOG.md").readText())
+}
+
+tasks.register<net.darkhax.curseforgegradle.TaskPublishCurseForge>("curseforge") {
+    apiToken = findProperty("CURSEFORGE_TOKEN") as String?
+    val mainFile = upload(1401997, jarTask)
+    mainFile.releaseType = "release"
+    mainFile.addGameVersion(minecraftVersion)
+    mainFile.addModLoader(loader)
+    mainFile.changelog = rootProject.file("CHANGELOG.md").readText()
+    mainFile.changelogType = "markdown"
 }
