@@ -61,25 +61,36 @@ apply(plugin = "com.modrinth.minotaur")
 apply(plugin = "net.darkhax.curseforgegradle")
 
 val jarTask = if (loader == "fabric") tasks.named("remapJar") else tasks.named("jar")
+val loaderName = if (loader == "neoforge") "NeoForge" else "Fabric"
+
+// extract the latest version's content from CHANGELOG.md (between first and second ## version headers)
+val changelogContent = rootProject.file("CHANGELOG.md").readText()
+    .substringAfter("\n## $modVersion")
+    .substringAfter("\n")
+    .let { block -> val next = block.indexOf("\n## "); if (next >= 0) block.substring(0, next) else block }
+    .trim()
 
 extensions.configure<com.modrinth.minotaur.ModrinthExtension> {
     token.set(findProperty("MODRINTH_TOKEN") as String?)
     projectId.set("patience")
-    versionNumber.set("$modVersion-$loader")
-    versionName.set("$modName $modVersion ($loader)")
+    versionNumber.set(modVersion)
+    versionName.set("$modName $modVersion ($loaderName)")
     versionType.set("release")
     uploadFile.set(jarTask)
     gameVersions.addAll(minecraftVersion)
     loaders.add(loader)
-    changelog.set(rootProject.file("CHANGELOG.md").readText())
+    changelog.set(changelogContent)
 }
 
 tasks.register<net.darkhax.curseforgegradle.TaskPublishCurseForge>("curseforge") {
     apiToken = findProperty("CURSEFORGE_TOKEN") as String?
     val mainFile = upload(1401997, jarTask)
+    mainFile.displayName = "$modName $modVersion ($loaderName)"
     mainFile.releaseType = "release"
     mainFile.addGameVersion(minecraftVersion)
-    mainFile.addModLoader(loader)
-    mainFile.changelog = rootProject.file("CHANGELOG.md").readText()
+    mainFile.addModLoader(loaderName)
+    mainFile.addEnvironment("Client")
+    mainFile.addEnvironment("Server")
+    mainFile.changelog = changelogContent
     mainFile.changelogType = "markdown"
 }
