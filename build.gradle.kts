@@ -80,6 +80,21 @@ extensions.configure<com.modrinth.minotaur.ModrinthExtension> {
     gameVersions.addAll(minecraftVersion)
     loaders.add(loader)
     changelog.set(changelogContent)
+    dependencies {
+        optional.project("cloth-config")
+        optional.project("modmenu")
+        optional.project("emi")
+        optional.project("hexerei")
+        optional.project("inventorio")
+        optional.project("universal-sawmill")
+        optional.project("invmove")
+        optional.project("easel-does-it")
+        optional.project("woodworks")
+        optional.project("cold-sweat")
+        optional.project("galosphere")
+        optional.project("clayworks")
+        optional.project("curios")
+    }
 }
 
 tasks.register<net.darkhax.curseforgegradle.TaskPublishCurseForge>("curseforge") {
@@ -93,4 +108,18 @@ tasks.register<net.darkhax.curseforgegradle.TaskPublishCurseForge>("curseforge")
     mainFile.addEnvironment("Server")
     mainFile.changelog = changelogContent
     mainFile.changelogType = "markdown"
+    mainFile.addOptional("cloth-config")
+    mainFile.addOptional("modmenu")
+    mainFile.addOptional("emi")
+    mainFile.addOptional("hexerei")
+    mainFile.addOptional("inventorio")
+    mainFile.addOptional("inventorio-forge")
+    mainFile.addOptional("sawmill")
+    mainFile.addOptional("invmove")
+    mainFile.addOptional("easel-does-it")
+    mainFile.addOptional("woodworks")
+    mainFile.addOptional("cold-sweat")
+    mainFile.addOptional("galosphere")
+    mainFile.addOptional("clayworks")
+    mainFile.addOptional("curios")
 }

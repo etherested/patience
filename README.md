@@ -32,11 +32,11 @@ Ships with preconfigured support for 17 workstations. All can be disabled, custo
 | | Containers |
 |---|---|
 | **Vanilla** | Player inventory (2×2), Crafting table, Smithing table, Anvil, Grindstone, Stonecutter, Cartography table, Loom |
-| **Modded** | Curios, Inventorio, Sawmill, Woodworks, Easel Does It, Galosphere, Clayworks, Cold Sweat, Hexerei |
+| **Modded** | [Curios](https://modrinth.com/mod/curios), [Inventorio](https://modrinth.com/mod/inventorio), [Sawmill](https://modrinth.com/mod/universal-sawmill), [Woodworks](https://modrinth.com/mod/woodworks), [Easel Does It](https://modrinth.com/mod/easel-does-it), [Galosphere](https://modrinth.com/mod/galosphere), [Clayworks](https://modrinth.com/mod/clayworks), [Cold Sweat](https://modrinth.com/mod/cold-sweat), [Hexerei](https://modrinth.com/mod/hexerei) |
 
 ## 🛠️ Configuration
 
-Config is stored in `patience.json` in the game's config directory. A GUI screen is available when Cloth Config is installed (Fabric via ModMenu, NeoForge via the mods screen). The GUI covers general settings — multiplier maps and container definitions are JSON-only.
+Config is stored in `patience.json` in the game's config directory. A GUI screen is available when [Cloth Config](https://modrinth.com/mod/cloth-config) is installed (Fabric via [Mod Menu](https://modrinth.com/mod/modmenu), NeoForge via the mods screen). The GUI covers general settings — multiplier maps and container definitions are JSON-only.
 
 <details>
 <summary><b>General</b></summary>
