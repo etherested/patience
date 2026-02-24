@@ -1,7 +1,7 @@
 package etherested.patience.mixin;
 
 //? if fabric {
-import net.minecraft.client.Camera;
+/*import net.minecraft.client.Camera;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BlockGetter;
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import etherested.patience.client.CraftingHandler;
 
 // Fabric-only mixin that applies camera shake during crafting;
-// on NeoForge this is handled by ViewportEvent.ComputeCameraAngles in CameraHandler
+// on NeoForge/Forge this is handled by ViewportEvent.ComputeCameraAngles in CameraHandler
 @Mixin(Camera.class)
 public abstract class CameraMixin {
     @Unique
@@ -39,7 +39,7 @@ public abstract class CameraMixin {
         }
     }
 }
-//?} else {
-/*// NeoForge stub — CameraMixin is Fabric-only
+*///?} else {
+// NeoForge/Forge stub — CameraMixin is Fabric-only
 public class CameraMixin {}
-*///?}
+//?}

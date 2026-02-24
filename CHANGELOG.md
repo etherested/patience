@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### 🧩 Added
+
+- Minecraft 1.20.1 support for Forge and Fabric
+
 ## 2.0.1: 2026-02-24
 
 ### 🐞 Fixed

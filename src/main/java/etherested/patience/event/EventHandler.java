@@ -10,7 +10,7 @@ import etherested.patience.network.ConfigSyncPayload;
 import etherested.patience.platform.PlatformHelper;
 
 //? if neoforge {
-/*import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
@@ -19,19 +19,30 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import etherested.patience.Patience;
 import etherested.patience.client.CraftingHandler;
+//?} else if (forge) {
+/*import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.server.ServerStartedEvent;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import etherested.patience.Patience;
+import etherested.patience.client.CraftingHandler;
 *///?} else {
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+/*import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-//?}
+*///?}
 
 //? if neoforge {
-/*@EventBusSubscriber(modid = Patience.MODID)
+@EventBusSubscriber(modid = Patience.MODID)
+//?} else if (forge) {
+/*@Mod.EventBusSubscriber(modid = Patience.MODID)
 *///?}
 public final class EventHandler {
 
     //? if neoforge {
-    /*@SubscribeEvent
+    @SubscribeEvent
     public static void onServerStarted(ServerStartedEvent event) {
         handleServerStarted();
     }
@@ -54,8 +65,32 @@ public final class EventHandler {
     public static void onRegisterCommands(RegisterCommandsEvent event) {
         handleRegisterCommands(event.getDispatcher(), event.getBuildContext());
     }
+    //?} else if (forge) {
+    /*@SubscribeEvent
+    public static void onServerStarted(ServerStartedEvent event) {
+        handleServerStarted();
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+            handlePlayerLogin(serverPlayer);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.phase == TickEvent.Phase.START && event.player.level().isClientSide()) {
+            CraftingHandler.getInstance().tick();
+        }
+    }
+
+    @SubscribeEvent
+    public static void onRegisterCommands(RegisterCommandsEvent event) {
+        handleRegisterCommands(event.getDispatcher(), event.getBuildContext());
+    }
     *///?} else {
-    public static void registerFabricEvents() {
+    /*public static void registerFabricEvents() {
         ServerLifecycleEvents.SERVER_STARTED.register(server -> handleServerStarted());
 
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
@@ -66,7 +101,7 @@ public final class EventHandler {
             handleRegisterCommands(dispatcher, registryAccess);
         });
     }
-    //?}
+    *///?}
 
     private static void handleServerStarted() {
         ConfigManager.load();
@@ -94,7 +129,12 @@ public final class EventHandler {
                                         PlatformHelper.sendToAllPlayers(server, new ConfigSyncPayload(config));
                                     }
                                     ctx.getSource().sendSuccess(
+                                            //? if >=1.21 {
                                             () -> Component.translatable("command.patience.reload.success").withColor(0xFF68C1),
+                                            //?} else {
+                                            /*() -> Component.translatable("command.patience.reload.success")
+                                                    .withStyle(style -> style.withColor(net.minecraft.network.chat.TextColor.fromRgb(0xFF68C1))),
+                                            *///?}
                                             true
                                     );
                                     return 1;

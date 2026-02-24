@@ -116,8 +116,13 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
 
         for (int i = startIndex; i < limit; i++) {
             Slot s = menu.slots.get(i);
+            //? if >=1.21 {
             if (s.hasItem() && ItemStack.isSameItemSameComponents(s.getItem(), stack)) {
                 if (s.getItem().getCount() + stack.getCount() <= s.getMaxStackSize(stack)) {
+            //?} else {
+            /*if (s.hasItem() && ItemStack.isSameItemSameTags(s.getItem(), stack)) {
+                if (s.getItem().getCount() + stack.getCount() <= Math.min(s.getMaxStackSize(), stack.getMaxStackSize())) {
+            *///?}
                     return i;
                 }
             }
@@ -171,7 +176,11 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
 
     @Unique
     private void patience$renderOverlay(GuiGraphics graphics, ContainerSettings settings, float progress) {
+        //? if >=1.21 {
         ResourceLocation texture = ResourceLocation.parse(settings.getOverlayTexture());
+        //?} else {
+        /*ResourceLocation texture = new ResourceLocation(settings.getOverlayTexture());
+        *///?}
         int x = leftPos + settings.getOverlayX();
         int y = topPos + settings.getOverlayY();
         int width = settings.getOverlayWidth();

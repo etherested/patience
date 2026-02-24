@@ -1,0 +1,119 @@
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
+apply plugin: 'org.spongepowered.mixin'
+
+mixin {
+    add sourceSets.main, "${project.property('modId')}.refmap.json"
+    config "${project.property('modId')}.mixins.json"
+}
+
+def modId = project.property('modId')
+def modVersion = project.property('modVersion')
+def modName = project.property('modName')
+def modLicense = project.property('modLicense')
+def modAuthors = project.property('modAuthors')
+def modDescription = project.property('modDescription')
+def minecraftVersion = project.property('minecraftVersion')
+def minecraftVersionRange = project.property('minecraftVersionRange')
+def forgeVersion = project.property('forgeVersion')
+def forgeVersionRange = project.property('forgeVersionRange')
+def loaderVersionRange = project.property('loaderVersionRange')
+def parchmentMinecraftVersion = project.property('parchmentMinecraftVersion')
+def parchmentMappingsVersion = project.property('parchmentMappingsVersion')
+def clothConfigVersion = project.property('clothConfigVersion')
+def javaVersion = project.property('javaVersion')
+def packFormat = project.property('packFormat')
+
+minecraft {
+    mappings channel: 'parchment', version: "${parchmentMappingsVersion}-${parchmentMinecraftVersion}"
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', modId
+            args '--username', 'Dev'
+            mods {
+                "${modId}" {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', modId
+            args '--nogui'
+            mods {
+                "${modId}" {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}"
+    compileOnly "me.shedaniel.cloth:cloth-config-forge:${clothConfigVersion}"
+    annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
+}
+
+jar {
+    manifest {
+        attributes([
+            'MixinConfigs': "${modId}.mixins.json"
+        ])
+    }
+}
+
+def generateModMetadata = tasks.register('generateModMetadata', ProcessResources) {
+    def replaceProperties = [
+        'minecraft_version'      : minecraftVersion,
+        'minecraft_version_range': minecraftVersionRange,
+        'forge_version'          : forgeVersion,
+        'forge_version_range'    : forgeVersionRange,
+        'loader_version_range'   : loaderVersionRange,
+        'mod_id'                 : modId,
+        'mod_name'               : modName,
+        'mod_license'            : modLicense,
+        'mod_version'            : modVersion,
+        'mod_authors'            : modAuthors,
+        'mod_description'        : modDescription
+    ]
+    inputs.properties replaceProperties
+    expand replaceProperties
+    from rootProject.file('src/main/templates/META-INF')
+    into layout.buildDirectory.dir('generated/sources/modMetadata/META-INF')
+    include 'mods.toml'
+}
+
+sourceSets.main.resources.srcDir layout.buildDirectory.dir('generated/sources/modMetadata').get().asFile
+
+// exclude Fabric-only and NeoForge-only files from Forge build;
+// expand pack.mcmeta and mixin JSON templates
+tasks.named('processResources') {
+    exclude 'fabric.mod.json'
+    exclude 'patience-fabric.mixins.json'
+    dependsOn generateModMetadata
+
+    def expandProps = [
+        'pack_format': packFormat,
+        'java_version': javaVersion
+    ]
+    inputs.properties expandProps
+    filesMatching('pack.mcmeta') {
+        expand expandProps
+    }
+    filesMatching('*.mixins.json') {
+        expand expandProps
+    }
+}
+
+// exclude NeoForge template from Forge jar
+tasks.named('jar') {
+    exclude 'META-INF/neoforge.mods.toml'
+}

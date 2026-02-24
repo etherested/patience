@@ -1,6 +1,6 @@
 {
   "pack": {
     "description": "Patience resources",
-    "pack_format": 15
+    "pack_format": ${pack_format}
   }
 }

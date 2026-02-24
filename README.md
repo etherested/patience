@@ -1,6 +1,7 @@
 # Patience
 
 ![NeoForge](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact-minimal/supported/neoforge_vector.svg)
+![Forge](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact-minimal/supported/forge_vector.svg)
 ![Fabric](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact-minimal/supported/fabric_vector.svg)
 [![Modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact-minimal/available/modrinth_vector.svg)](https://modrinth.com/mod/patience)
 [![CurseForge](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact-minimal/available/curseforge_vector.svg)](https://www.curseforge.com/minecraft/mc-mods/patience)
@@ -36,7 +37,7 @@ Ships with preconfigured support for 17 workstations. All can be disabled, custo
 
 ## 🛠️ Configuration
 
-Config is stored in `patience.json` in the game's config directory. A GUI screen is available when [Cloth Config](https://modrinth.com/mod/cloth-config) is installed (Fabric via [Mod Menu](https://modrinth.com/mod/modmenu), NeoForge via the mods screen). The GUI covers general settings — multiplier maps and container definitions are JSON-only.
+Config is stored in `patience.json` in the game's config directory. A GUI screen is available when [Cloth Config](https://modrinth.com/mod/cloth-config) is installed (Fabric via [Mod Menu](https://modrinth.com/mod/modmenu), NeoForge/Forge via the mods screen). The GUI covers general settings — multiplier maps and container definitions are JSON-only.
 
 <details>
 <summary><b>General</b></summary>

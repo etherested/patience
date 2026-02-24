@@ -47,9 +47,13 @@ public final class IngredientCountHelper {
                 return 1;
             }
 
+            //? if >=1.21 {
             Object recipeHolder = recipes.get(selectedIndex);
             Method valueMethod = recipeHolder.getClass().getMethod("value");
             Object recipe = valueMethod.invoke(recipeHolder);
+            //?} else {
+            /*Object recipe = recipes.get(selectedIndex);
+            *///?}
 
             Field countField = recipe.getClass().getField("ingredientCount");
             return Math.max(1, countField.getInt(recipe));

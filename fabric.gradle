@@ -10,6 +10,8 @@ def fabricLoaderVersion = project.property('fabricLoaderVersion')
 def fabricApiVersion = project.property('fabricApiVersion')
 def clothConfigVersion = project.property('clothConfigVersion')
 def modMenuVersion = project.property('modMenuVersion')
+def javaVersion = project.property('javaVersion')
+def packFormat = project.property('packFormat')
 
 dependencies {
     minecraft "com.mojang:minecraft:${minecraftVersion}"
@@ -37,11 +39,21 @@ loom {
 
 processResources {
     def replaceProperties = [
-        'version'    : modVersion,
-        'description': modDescription
+        'version'              : modVersion,
+        'description'          : modDescription,
+        'minecraft_version'    : minecraftVersion,
+        'java_version'         : javaVersion,
+        'fabric_loader_version': fabricLoaderVersion,
+        'pack_format'          : packFormat
     ]
     inputs.properties replaceProperties
     filesMatching('fabric.mod.json') {
+        expand replaceProperties
+    }
+    filesMatching('pack.mcmeta') {
+        expand replaceProperties
+    }
+    filesMatching('*.mixins.json') {
         expand replaceProperties
     }
 }

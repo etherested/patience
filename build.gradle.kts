@@ -4,6 +4,9 @@ plugins {
     id("dev.kikugie.stonecutter")
     id("net.neoforged.moddev") version "2.0.140" apply false
     id("fabric-loom") version "1.9-SNAPSHOT" apply false
+    id("net.minecraftforge.gradle") version "[6.0.24,6.2)" apply false
+    id("org.parchmentmc.librarian.forgegradle") version "1.+" apply false
+    id("org.spongepowered.mixin") version "0.7-SNAPSHOT" apply false
     id("com.modrinth.minotaur") version "2.+" apply false
     id("net.darkhax.curseforgegradle") version "1.1.+" apply false
 }
@@ -16,6 +19,7 @@ val modAuthors: String by project
 val modDescription: String by project
 val modLicense: String by project
 val minecraftVersion: String by project
+val javaVersion: String by project
 
 val loader = project.name.substringAfterLast('-')
 
@@ -23,12 +27,14 @@ version = modVersion
 group = modGroupId
 base.archivesName.set(modId)
 
-java.toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(javaVersion.toInt()))
 
 repositories {
     maven("https://maven.parchmentmc.org/")
     maven("https://maven.shedaniel.me/")
     maven("https://maven.terraformersmc.com/")
+    maven("https://maven.architectury.dev/")
+    maven("https://maven.minecraftforge.net/")
 }
 
 sourceSets {
@@ -41,6 +47,7 @@ sourceSets {
 when (loader) {
     "neoforge" -> apply(from = rootProject.file("neoforge.gradle"))
     "fabric" -> apply(from = rootProject.file("fabric.gradle"))
+    "forge" -> apply(from = rootProject.file("forge.gradle"))
 }
 
 publishing {
@@ -60,8 +67,15 @@ publishing {
 apply(plugin = "com.modrinth.minotaur")
 apply(plugin = "net.darkhax.curseforgegradle")
 
-val jarTask = if (loader == "fabric") tasks.named("remapJar") else tasks.named("jar")
-val loaderName = if (loader == "neoforge") "NeoForge" else "Fabric"
+val jarTask = when (loader) {
+    "fabric" -> tasks.named("remapJar")
+    else -> tasks.named("jar")
+}
+val loaderName = when (loader) {
+    "neoforge" -> "NeoForge"
+    "forge" -> "Forge"
+    else -> "Fabric"
+}
 
 // extract the latest version's content from CHANGELOG.md (between first and second ## version headers)
 val changelogContent = rootProject.file("CHANGELOG.md").readText()

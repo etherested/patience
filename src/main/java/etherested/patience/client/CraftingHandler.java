@@ -26,7 +26,11 @@ import net.minecraft.world.inventory.StonecutterMenu;
 import net.minecraft.world.inventory.AbstractFurnaceMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+//? if >=1.21 {
 import net.minecraft.world.item.crafting.RecipeHolder;
+//?} else {
+/*import net.minecraft.world.item.crafting.Recipe;
+*///?}
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.phys.Vec3;
 import org.slf4j.Logger;
@@ -570,12 +574,10 @@ public final class CraftingHandler {
         AbstractContainerMenu menu = currentScreen.getMenu();
 
         if (menu instanceof CraftingMenu || menu instanceof InventoryMenu) return BuiltInRegistries.RECIPE_TYPE.getKey(RecipeType.CRAFTING);
-        return switch (menu) {
-            case StonecutterMenu ignored -> BuiltInRegistries.RECIPE_TYPE.getKey(RecipeType.STONECUTTING);
-            case SmithingMenu ignored -> BuiltInRegistries.RECIPE_TYPE.getKey(RecipeType.SMITHING);
-            case AbstractFurnaceMenu ignored -> BuiltInRegistries.RECIPE_TYPE.getKey(RecipeType.SMELTING);
-            default -> BuiltInRegistries.RECIPE_TYPE.getKey(RecipeType.CRAFTING);
-        };
+        if (menu instanceof StonecutterMenu) return BuiltInRegistries.RECIPE_TYPE.getKey(RecipeType.STONECUTTING);
+        if (menu instanceof SmithingMenu) return BuiltInRegistries.RECIPE_TYPE.getKey(RecipeType.SMITHING);
+        if (menu instanceof AbstractFurnaceMenu) return BuiltInRegistries.RECIPE_TYPE.getKey(RecipeType.SMELTING);
+        return BuiltInRegistries.RECIPE_TYPE.getKey(RecipeType.CRAFTING);
     }
 
     private float getRecipeMultiplier(ContainerSettings container) {
@@ -597,12 +599,17 @@ public final class CraftingHandler {
         if (!config.getRecipeMultipliersByRecipe().isEmpty()) {
             try {
                 if (Minecraft.getInstance().level != null) {
+                    //? if >=1.21 {
                     ResourceLocation typeId = ResourceLocation.parse(recipeTypeKey);
+                    //?} else {
+                    /*ResourceLocation typeId = new ResourceLocation(recipeTypeKey);
+                    *///?}
                     Optional<RecipeType<?>> typeOpt = BuiltInRegistries.RECIPE_TYPE.getOptional(typeId);
 
                     if (typeOpt.isPresent()) {
                         var recipeManager = Minecraft.getInstance().level.getRecipeManager();
 
+                        //? if >=1.21 {
                         @SuppressWarnings("unchecked")
                         List<RecipeHolder<?>> recipes = (List<RecipeHolder<?>>) (List<?>) recipeManager.getAllRecipesFor((RecipeType) typeOpt.get());
 
@@ -614,6 +621,17 @@ public final class CraftingHandler {
                                 }
                             }
                         }
+                        //?} else {
+                        /*@SuppressWarnings("unchecked")
+                        List<Recipe<?>> recipes = (List<Recipe<?>>) (List<?>) recipeManager.getAllRecipesFor((RecipeType) typeOpt.get());
+
+                        for (Recipe<?> recipe : recipes) {
+                            if (ItemStack.isSameItem(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()), outputStack)) {
+                                // recipe ID lookup not available without RecipeHolder in 1.20.1;
+                                // recipe-by-ID multiplier is skipped for this version
+                            }
+                        }
+                        *///?}
                     }
                 }
             } catch (Exception ignored) {
@@ -695,7 +713,11 @@ public final class CraftingHandler {
             player.swing(InteractionHand.MAIN_HAND);
 
             if (soundId != null && !soundId.isEmpty()) {
+                //? if >=1.21 {
                 currentSound = new CraftingSoundInstance(ResourceLocation.parse(soundId));
+                //?} else {
+                /*currentSound = new CraftingSoundInstance(new ResourceLocation(soundId));
+                *///?}
             } else {
                 currentSound = new CraftingSoundInstance();
             }
@@ -729,9 +751,16 @@ public final class CraftingHandler {
         stopSound();
         LocalPlayer player = Minecraft.getInstance().player;
         if (player != null) {
-            SoundEvent sound = (soundId != null && !soundId.isEmpty())
-                ? SoundEvent.createVariableRangeEvent(ResourceLocation.parse(soundId))
-                : SoundRegistry.finish();
+            SoundEvent sound;
+            if (soundId != null && !soundId.isEmpty()) {
+                //? if >=1.21 {
+                sound = SoundEvent.createVariableRangeEvent(ResourceLocation.parse(soundId));
+                //?} else {
+                /*sound = SoundEvent.createVariableRangeEvent(new ResourceLocation(soundId));
+                *///?}
+            } else {
+                sound = SoundRegistry.finish();
+            }
             Minecraft.getInstance().getSoundManager().play(
                 SimpleSoundInstance.forUI(sound, CraftingSoundInstance.randomizePitch(), 0.1F)
             );

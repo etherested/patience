@@ -2,7 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "etherested.patience.mixin",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_${java_version}",
   "mixins": [
   ],
   "client": [

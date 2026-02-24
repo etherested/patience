@@ -1,6 +1,8 @@
 package etherested.patience.platform;
 
+//? if >=1.21 {
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+//?}
 import net.minecraft.server.level.ServerPlayer;
 
 import java.nio.file.Path;
@@ -12,51 +14,73 @@ public final class PlatformHelper {
 
     public static boolean isModLoaded(String modId) {
         //? if neoforge {
-        /*return net.neoforged.fml.ModList.get().isLoaded(modId);
+        return net.neoforged.fml.ModList.get().isLoaded(modId);
+        //?} else if (forge) {
+        /*return net.minecraftforge.fml.ModList.get().isLoaded(modId);
         *///?} else {
-        return net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded(modId);
-        //?}
+        /*return net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded(modId);
+        *///?}
     }
 
     public static boolean isClient() {
         //? if neoforge {
-        /*return net.neoforged.fml.loading.FMLEnvironment.dist == net.neoforged.api.distmarker.Dist.CLIENT;
+        return net.neoforged.fml.loading.FMLEnvironment.dist == net.neoforged.api.distmarker.Dist.CLIENT;
+        //?} else if (forge) {
+        /*return net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT;
         *///?} else {
-        return net.fabricmc.loader.api.FabricLoader.getInstance().getEnvironmentType() == net.fabricmc.api.EnvType.CLIENT;
-        //?}
+        /*return net.fabricmc.loader.api.FabricLoader.getInstance().getEnvironmentType() == net.fabricmc.api.EnvType.CLIENT;
+        *///?}
     }
 
     public static Path getConfigDir() {
         //? if neoforge {
-        /*return net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get();
+        return net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get();
+        //?} else if (forge) {
+        /*return net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get();
         *///?} else {
-        return net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir();
-        //?}
+        /*return net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir();
+        *///?}
     }
 
+    //? if >=1.21 {
     public static void sendToServer(CustomPacketPayload payload) {
         //? if neoforge {
-        /*net.neoforged.neoforge.network.PacketDistributor.sendToServer(payload);
-        *///?} else {
-        net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(payload);
-        //?}
+        net.neoforged.neoforge.network.PacketDistributor.sendToServer(payload);
+        //?} else {
+        /*net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(payload);
+        *///?}
     }
 
     public static void sendToPlayer(ServerPlayer player, CustomPacketPayload payload) {
         //? if neoforge {
-        /*net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(player, payload);
-        *///?} else {
-        net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(player, payload);
-        //?}
+        net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(player, payload);
+        //?} else {
+        /*net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(player, payload);
+        *///?}
     }
 
     public static void sendToAllPlayers(net.minecraft.server.MinecraftServer server, CustomPacketPayload payload) {
         //? if neoforge {
-        /*net.neoforged.neoforge.network.PacketDistributor.sendToAllPlayers(payload);
-        *///?} else {
-        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+        net.neoforged.neoforge.network.PacketDistributor.sendToAllPlayers(payload);
+        //?} else {
+        /*for (ServerPlayer player : server.getPlayerList().getPlayers()) {
             net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(player, payload);
         }
-        //?}
+        *///?}
     }
+    //?} else {
+    /*public static void sendToServer(Object payload) {
+        etherested.patience.network.NetworkHandler.sendToServer(payload);
+    }
+
+    public static void sendToPlayer(ServerPlayer player, Object payload) {
+        etherested.patience.network.NetworkHandler.sendToPlayer(player, payload);
+    }
+
+    public static void sendToAllPlayers(net.minecraft.server.MinecraftServer server, Object payload) {
+        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            etherested.patience.network.NetworkHandler.sendToPlayer(player, payload);
+        }
+    }
+    *///?}
 }

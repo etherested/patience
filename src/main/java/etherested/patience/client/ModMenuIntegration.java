@@ -1,7 +1,7 @@
 package etherested.patience.client;
 
 //? if fabric {
-import com.terraformersmc.modmenu.api.ConfigScreenFactory;
+/*import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import etherested.patience.config.PatienceConfigScreen;
 
@@ -16,7 +16,7 @@ public class ModMenuIntegration implements ModMenuApi {
         return parent -> null;
     }
 }
-//?} else {
-/*// NeoForge stub — ModMenu integration is Fabric-only
+*///?} else {
+// NeoForge/Forge stub — ModMenu integration is Fabric-only
 public class ModMenuIntegration {}
-*///?}
+//?}
