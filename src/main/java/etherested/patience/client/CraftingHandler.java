@@ -3,6 +3,13 @@ package etherested.patience.client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.AnvilScreen;
+import net.minecraft.client.gui.screens.inventory.CartographyTableScreen;
+import net.minecraft.client.gui.screens.inventory.CraftingScreen;
+import net.minecraft.client.gui.screens.inventory.GrindstoneScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.gui.screens.inventory.LoomScreen;
+import net.minecraft.client.gui.screens.inventory.SmithingScreen;
+import net.minecraft.client.gui.screens.inventory.StonecutterScreen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -38,6 +45,7 @@ import etherested.patience.util.SlotRange;
 import etherested.patience.util.SpeedCalculator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -52,6 +60,31 @@ public final class CraftingHandler {
     private static final int SOUND_PITCH_INTERVAL = 25;
     private static final RandomSource RANDOM = RandomSource.create();
     private static final ContainerSettings DISABLED = ContainerSettings.builder().enabled(false).build();
+
+    // maps Mojang-mapped vanilla screen class names to runtime class names;
+    // Fabric remaps vanilla classes to intermediary at runtime, so hardcoded
+    // Mojang names in the config won't match getClass().getName() in production;
+    // Class references here get properly remapped by Loom during build
+    private static final Map<String, String> SCREEN_CLASS_MAP = new HashMap<>();
+
+    static {
+        resolveScreen("net.minecraft.client.gui.screens.inventory.InventoryScreen", InventoryScreen.class);
+        resolveScreen("net.minecraft.client.gui.screens.inventory.CraftingScreen", CraftingScreen.class);
+        resolveScreen("net.minecraft.client.gui.screens.inventory.SmithingScreen", SmithingScreen.class);
+        resolveScreen("net.minecraft.client.gui.screens.inventory.AnvilScreen", AnvilScreen.class);
+        resolveScreen("net.minecraft.client.gui.screens.inventory.GrindstoneScreen", GrindstoneScreen.class);
+        resolveScreen("net.minecraft.client.gui.screens.inventory.StonecutterScreen", StonecutterScreen.class);
+        resolveScreen("net.minecraft.client.gui.screens.inventory.CartographyTableScreen", CartographyTableScreen.class);
+        resolveScreen("net.minecraft.client.gui.screens.inventory.LoomScreen", LoomScreen.class);
+    }
+
+    private static void resolveScreen(String mojangName, Class<?> screenClass) {
+        SCREEN_CLASS_MAP.put(mojangName, screenClass.getName());
+    }
+
+    private static String resolveScreenClass(String configuredName) {
+        return SCREEN_CLASS_MAP.getOrDefault(configuredName, configuredName);
+    }
 
     private static CraftingHandler instance;
 
@@ -139,7 +172,7 @@ public final class CraftingHandler {
 
         String screenClass = currentScreen.getClass().getName();
         return config.getContainers().stream()
-            .filter(c -> c.getScreenClass() != null && c.getScreenClass().equals(screenClass))
+            .filter(c -> c.getScreenClass() != null && resolveScreenClass(c.getScreenClass()).equals(screenClass))
             .findFirst()
             .orElse(DISABLED);
     }
