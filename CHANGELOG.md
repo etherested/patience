@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2.0.1: 2026-02-24
+
 ### 🐞 Fixed
 
 - Crafting delays not applying on Fabric due to vanilla screen class names being remapped to intermediary at runtime
