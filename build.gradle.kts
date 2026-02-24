@@ -93,6 +93,7 @@ extensions.configure<com.modrinth.minotaur.ModrinthExtension> {
     uploadFile.set(jarTask)
     gameVersions.addAll(minecraftVersion)
     loaders.add(loader)
+    if (loader == "fabric") loaders.add("quilt")
     changelog.set(changelogContent)
     dependencies {
         optional.project("cloth-config")
@@ -118,6 +119,7 @@ tasks.register<net.darkhax.curseforgegradle.TaskPublishCurseForge>("curseforge")
     mainFile.releaseType = "release"
     mainFile.addGameVersion(minecraftVersion)
     mainFile.addModLoader(loaderName)
+    if (loader == "fabric") mainFile.addModLoader("Quilt")
     mainFile.addEnvironment("Client")
     mainFile.addEnvironment("Server")
     mainFile.changelog = changelogContent
