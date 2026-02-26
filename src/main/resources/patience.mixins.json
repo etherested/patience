@@ -3,6 +3,7 @@
   "minVersion": "0.8",
   "package": "etherested.patience.mixin",
   "compatibilityLevel": "JAVA_${java_version}",
+  "refmap": "patience.refmap.json",
   "mixins": [
   ],
   "client": [
