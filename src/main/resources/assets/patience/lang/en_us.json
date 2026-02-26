@@ -38,6 +38,7 @@
   "patience.config.decay_rate": "Decay Rate",
   "patience.config.screen_shake_enabled": "Enable Screen Shake",
   "patience.config.screen_shake_intensity": "Screen Shake Intensity",
+  "patience.config.hunger_enabled": "Enable Hunger",
   "patience.config.hunger_exhaustion_cost": "Exhaustion Cost",
   "patience.config.hunger_penalty_enabled": "Enable Hunger Penalty",
   "patience.config.hunger_threshold": "Hunger Threshold",

@@ -39,6 +39,7 @@ public class PatienceConfig {
     private float screenShakeIntensity = 0.5F;
 
     // hunger
+    private boolean hungerEnabled = true;
     private float hungerExhaustionCost = 0.1F;
     private boolean hungerPenaltyEnabled = true;
     private int hungerThreshold = 6;
@@ -112,6 +113,7 @@ public class PatienceConfig {
     public float getScreenShakeIntensity() { return screenShakeIntensity; }
 
     // hunger getters
+    public boolean isHungerEnabled() { return hungerEnabled; }
     public float getHungerExhaustionCost() { return hungerExhaustionCost; }
     public boolean isHungerPenaltyEnabled() { return hungerPenaltyEnabled; }
     public int getHungerThreshold() { return hungerThreshold; }
@@ -160,6 +162,7 @@ public class PatienceConfig {
     public void setScreenShakeIntensity(float screenShakeIntensity) { this.screenShakeIntensity = screenShakeIntensity; }
 
     // hunger setters
+    public void setHungerEnabled(boolean hungerEnabled) { this.hungerEnabled = hungerEnabled; }
     public void setHungerExhaustionCost(float hungerExhaustionCost) { this.hungerExhaustionCost = hungerExhaustionCost; }
     public void setHungerPenaltyEnabled(boolean hungerPenaltyEnabled) { this.hungerPenaltyEnabled = hungerPenaltyEnabled; }
     public void setHungerThreshold(int hungerThreshold) { this.hungerThreshold = hungerThreshold; }
@@ -230,6 +233,7 @@ public class PatienceConfig {
 
         // hunger
         JsonObject hunger = new JsonObject();
+        hunger.addProperty("enabled", hungerEnabled);
         hunger.addProperty("exhaustion_cost", hungerExhaustionCost);
         hunger.addProperty("penalty_enabled", hungerPenaltyEnabled);
         hunger.addProperty("threshold", hungerThreshold);
@@ -316,6 +320,7 @@ public class PatienceConfig {
         // hunger
         JsonObject hunger = getObject(json, "hunger");
         if (hunger != null) {
+            c.hungerEnabled = getBool(hunger, "enabled", true);
             c.hungerExhaustionCost = getFloat(hunger, "exhaustion_cost", 0.1F);
             c.hungerPenaltyEnabled = getBool(hunger, "penalty_enabled", true);
             c.hungerThreshold = getInt(hunger, "threshold", 6);

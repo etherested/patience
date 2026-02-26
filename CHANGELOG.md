@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### 🧩 Added
+
+- `hunger_enabled` option to toggle the entire hunger system (default: `true`)
+
 ### 🐞 Fixed
 
 - Crash on startup on Forge 1.20.1

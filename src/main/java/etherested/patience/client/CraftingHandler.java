@@ -492,7 +492,7 @@ public final class CraftingHandler {
             );
 
             float hungerMult = 1.0F;
-            if (config.isHungerPenaltyEnabled() && player != null) {
+            if (config.isHungerEnabled() && config.isHungerPenaltyEnabled() && player != null) {
                 if (player.getFoodData().getFoodLevel() <= config.getHungerThreshold()) {
                     hungerMult = config.getHungerPenaltyMultiplier();
                 }
@@ -506,7 +506,7 @@ public final class CraftingHandler {
 
     private void completeCraft(ContainerSettings container) {
         PatienceConfig config = getConfig();
-        if (config.getHungerExhaustionCost() > 0) {
+        if (config.isHungerEnabled() && config.getHungerExhaustionCost() > 0) {
             PlatformHelper.sendToServer(new CraftingExhaustionPayload(config.getHungerExhaustionCost()));
         }
 

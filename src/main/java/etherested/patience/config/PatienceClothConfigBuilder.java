@@ -108,6 +108,10 @@ class PatienceClothConfigBuilder {
 
         // hunger
         ConfigCategory hunger = builder.getOrCreateCategory(Component.translatable("patience.config.category.hunger"));
+        hunger.addEntry(entry.startBooleanToggle(Component.translatable("patience.config.hunger_enabled"), config.isHungerEnabled())
+                .setDefaultValue(true)
+                .setSaveConsumer(config::setHungerEnabled)
+                .build());
         hunger.addEntry(entry.startFloatField(Component.translatable("patience.config.hunger_exhaustion_cost"), config.getHungerExhaustionCost())
                 .setDefaultValue(0.1F)
                 .setMin(0.0F)
