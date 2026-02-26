@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2.2.0: 2026-02-26
+
 ### 🧩 Added
 
 - Penalty for clicking the output slot during crafting, even without a minigame zone active
