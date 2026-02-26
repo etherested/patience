@@ -55,6 +55,10 @@ class PatienceClothConfigBuilder {
 
         // experience
         ConfigCategory experience = builder.getOrCreateCategory(Component.translatable("patience.config.category.experience"));
+        experience.addEntry(entry.startBooleanToggle(Component.translatable("patience.config.experience_enabled"), config.isExperienceEnabled())
+                .setDefaultValue(true)
+                .setSaveConsumer(config::setExperienceEnabled)
+                .build());
         experience.addEntry(entry.startFloatField(Component.translatable("patience.config.experience_multiplier"), config.getExperienceMultiplier())
                 .setDefaultValue(1.0F)
                 .setMin(0.0F)

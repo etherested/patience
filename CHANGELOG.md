@@ -5,6 +5,7 @@
 ### 🧩 Added
 
 - `hunger_enabled` option to toggle the entire hunger system (default: `true`)
+- `experience_enabled` option to toggle XP-based speed scaling (default: `true`)
 
 ### 🐞 Fixed
 

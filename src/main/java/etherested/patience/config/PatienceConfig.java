@@ -25,6 +25,7 @@ public class PatienceConfig {
     private float globalTimeMultiplier = 1.0F;
 
     // experience
+    private boolean experienceEnabled = true;
     private float experienceMultiplier = 1.0F;
     private float experienceBaseSpeed = 1.0F;
     private float experienceSpeedPerLevel = 0.02F;
@@ -99,6 +100,7 @@ public class PatienceConfig {
     public float getGlobalTimeMultiplier() { return globalTimeMultiplier; }
 
     // experience getters
+    public boolean isExperienceEnabled() { return experienceEnabled; }
     public float getExperienceMultiplier() { return experienceMultiplier; }
     public float getExperienceBaseSpeed() { return experienceBaseSpeed; }
     public float getExperienceSpeedPerLevel() { return experienceSpeedPerLevel; }
@@ -148,6 +150,7 @@ public class PatienceConfig {
     public void setGlobalTimeMultiplier(float globalTimeMultiplier) { this.globalTimeMultiplier = globalTimeMultiplier; }
 
     // experience setters
+    public void setExperienceEnabled(boolean experienceEnabled) { this.experienceEnabled = experienceEnabled; }
     public void setExperienceMultiplier(float experienceMultiplier) { this.experienceMultiplier = experienceMultiplier; }
     public void setExperienceBaseSpeed(float experienceBaseSpeed) { this.experienceBaseSpeed = experienceBaseSpeed; }
     public void setExperienceSpeedPerLevel(float experienceSpeedPerLevel) { this.experienceSpeedPerLevel = experienceSpeedPerLevel; }
@@ -213,6 +216,7 @@ public class PatienceConfig {
 
         // experience
         JsonObject exp = new JsonObject();
+        exp.addProperty("enabled", experienceEnabled);
         exp.addProperty("multiplier", experienceMultiplier);
         exp.addProperty("base_speed", experienceBaseSpeed);
         exp.addProperty("speed_per_level", experienceSpeedPerLevel);
@@ -297,6 +301,7 @@ public class PatienceConfig {
         // experience
         JsonObject exp = getObject(json, "experience");
         if (exp != null) {
+            c.experienceEnabled = getBool(exp, "enabled", true);
             c.experienceMultiplier = getFloat(exp, "multiplier", 1.0F);
             c.experienceBaseSpeed = getFloat(exp, "base_speed", 1.0F);
             c.experienceSpeedPerLevel = getFloat(exp, "speed_per_level", 0.02F);

@@ -483,13 +483,18 @@ public final class CraftingHandler {
                 attributeValue = player.getAttributeValue(AttributeRegistry.craftingSpeed());
             }
 
-            float speed = SpeedCalculator.getCraftingSpeed(
-                attributeValue,
-                getPlayerLevel(),
-                config.getExperienceBaseSpeed(),
-                config.getExperienceSpeedPerLevel(),
-                config.getExperienceMaxLevelCap()
-            );
+            float speed;
+            if (config.isExperienceEnabled()) {
+                speed = SpeedCalculator.getCraftingSpeed(
+                    attributeValue,
+                    getPlayerLevel(),
+                    config.getExperienceBaseSpeed(),
+                    config.getExperienceSpeedPerLevel(),
+                    config.getExperienceMaxLevelCap()
+                ) * config.getExperienceMultiplier();
+            } else {
+                speed = 1.0F;
+            }
 
             float hungerMult = 1.0F;
             if (config.isHungerEnabled() && config.isHungerPenaltyEnabled() && player != null) {
@@ -498,7 +503,7 @@ public final class CraftingHandler {
                 }
             }
 
-            currentTime += speed * config.getExperienceMultiplier() * hungerMult;
+            currentTime += speed * hungerMult;
         } else {
             completeCraft(container);
         }

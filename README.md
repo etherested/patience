@@ -62,6 +62,7 @@ Speed formula: `(attributeValue × baseSpeed) + (speedPerLevel × min(xpLevel, m
 
 | Setting | Default | Description |
 |---|---|---|
+| `enabled` | `true` | Enable XP-based crafting speed scaling |
 | `multiplier` | `1.0` | Overall crafting speed multiplier (0.0 - 100.0) |
 | `base_speed` | `1.0` | Base speed before XP bonus (0.01 - 100.0) |
 | `speed_per_level` | `0.02` | Bonus speed per XP level (0.0 - 10.0) |

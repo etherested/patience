@@ -30,6 +30,7 @@
   "patience.config.default_penalty_sound": "Default Penalty Sound",
   "patience.config.default_success_sound": "Default Success Sound",
   "patience.config.global_time_multiplier": "Global Time Multiplier",
+  "patience.config.experience_enabled": "Enable Experience Scaling",
   "patience.config.experience_multiplier": "Experience Multiplier",
   "patience.config.experience_base_speed": "Base Speed",
   "patience.config.experience_speed_per_level": "Speed Per Level",
