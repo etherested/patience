@@ -61,7 +61,7 @@ public final class CraftingHandler {
     private static final float BASE_CRAFT_TIME = 20.0F;
     private static final double MOVEMENT_THRESHOLD = 0.01;
     private static final double VELOCITY_THRESHOLD = 0.01;
-    private static final int SOUND_PITCH_INTERVAL = 25;
+    private static final int SOUND_REPLAY_INTERVAL = 8;
     private static final RandomSource RANDOM = RandomSource.create();
     private static final ContainerSettings DISABLED = ContainerSettings.builder().enabled(false).build();
 
@@ -207,8 +207,12 @@ public final class CraftingHandler {
             return true;
         }
 
-        if (crafting && miniGameActive && resultState == 0) {
-            checkMiniGame();
+        if (crafting) {
+            if (miniGameActive && resultState != 1) {
+                checkMiniGame();
+            } else if (!miniGameActive) {
+                applyEarlyClickPenalty();
+            }
             return true;
         }
 
@@ -265,10 +269,35 @@ public final class CraftingHandler {
             resultState = 1;
             resultTimer = 20;
             currentTime = totalTime;
+            stopSound();
+            if (config.isSoundsEnabled()) {
+                playSuccessSound(config.getDefaultSuccessSound());
+            }
         } else {
-            resultState = 2;
-            resultTimer = 20;
-            currentTime = Math.max(0, currentTime - (totalTime * config.getMinigamePenaltyPercent()));
+            applyPenalty(config);
+        }
+    }
+
+    // applies penalty for clicking the output slot early when no minigame zone is active
+    private void applyEarlyClickPenalty() {
+        applyPenalty(getConfig());
+    }
+
+    // reduces progress by the configured penalty amount;
+    // stops the looping crafting sound and plays a one-shot penalty sound;
+    // optionally cancels the craft if progress drops to zero
+    private void applyPenalty(PatienceConfig config) {
+        resultState = 2;
+        resultTimer = 20;
+        currentTime = Math.max(0, currentTime - (totalTime * config.getMinigamePenaltyPercent()));
+
+        stopSound();
+        if (config.isSoundsEnabled()) {
+            playPenaltySound(config.getDefaultPenaltySound());
+        }
+
+        if (currentTime <= 0 && config.isMinigamePenaltyCancelsCraft()) {
+            stopCrafting(true);
         }
     }
 
@@ -402,7 +431,7 @@ public final class CraftingHandler {
                 recordPosition();
                 return;
             } else {
-                if (currentSound == null && config.isSoundsEnabled() && totalTime >= 10.0F) {
+                if (currentSound == null && resultState != 2 && config.isSoundsEnabled() && totalTime >= 10.0F) {
                     playCraftingSound(getEffectiveCraftingSound(container));
                 }
                 recordPosition();
@@ -412,6 +441,9 @@ public final class CraftingHandler {
                 logDebug("player moved, stopping");
                 stopCrafting();
                 return;
+            }
+            if (currentSound == null && resultState != 2 && config.isSoundsEnabled() && totalTime >= 10.0F) {
+                playCraftingSound(getEffectiveCraftingSound(container));
             }
         }
 
@@ -437,6 +469,10 @@ public final class CraftingHandler {
                 waitTicks = 0;
                 stopCrafting(true);
             }
+            return;
+        }
+
+        if (resultState == 2) {
             return;
         }
 
@@ -735,7 +771,7 @@ public final class CraftingHandler {
 
     private void tickSound() {
         if (currentSound != null && crafting) {
-            if (++soundTicks >= SOUND_PITCH_INTERVAL) {
+            if (++soundTicks >= SOUND_REPLAY_INTERVAL) {
                 soundTicks = 0;
                 if (!currentSound.isForceStopped()) {
                     currentSound.forceStop();
@@ -760,6 +796,44 @@ public final class CraftingHandler {
                 *///?}
             } else {
                 sound = SoundRegistry.finish();
+            }
+            Minecraft.getInstance().getSoundManager().play(
+                SimpleSoundInstance.forUI(sound, CraftingSoundInstance.randomizePitch(), 0.1F)
+            );
+        }
+    }
+
+    private void playPenaltySound(String soundId) {
+        LocalPlayer player = Minecraft.getInstance().player;
+        if (player != null) {
+            SoundEvent sound;
+            if (soundId != null && !soundId.isEmpty()) {
+                //? if >=1.21 {
+                sound = SoundEvent.createVariableRangeEvent(ResourceLocation.parse(soundId));
+                //?} else {
+                /*sound = SoundEvent.createVariableRangeEvent(new ResourceLocation(soundId));
+                *///?}
+            } else {
+                sound = SoundRegistry.penalty();
+            }
+            Minecraft.getInstance().getSoundManager().play(
+                SimpleSoundInstance.forUI(sound, CraftingSoundInstance.randomizePitch(), 0.1F)
+            );
+        }
+    }
+
+    private void playSuccessSound(String soundId) {
+        LocalPlayer player = Minecraft.getInstance().player;
+        if (player != null) {
+            SoundEvent sound;
+            if (soundId != null && !soundId.isEmpty()) {
+                //? if >=1.21 {
+                sound = SoundEvent.createVariableRangeEvent(ResourceLocation.parse(soundId));
+                //?} else {
+                /*sound = SoundEvent.createVariableRangeEvent(new ResourceLocation(soundId));
+                *///?}
+            } else {
+                sound = SoundRegistry.success();
             }
             Minecraft.getInstance().getSoundManager().play(
                 SimpleSoundInstance.forUI(sound, CraftingSoundInstance.randomizePitch(), 0.1F)

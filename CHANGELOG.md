@@ -2,6 +2,23 @@
 
 ## Unreleased
 
+### 🧩 Added
+
+- Penalty for clicking the output slot during crafting, even without a minigame zone active
+- `penalty_cancels_craft` option to cancel craft when penalty clicks reduce progress to zero (default: `true`)
+- Penalty sound effect on each penalty click (`default_penalty_sound`, defaults to `patience:penalty`)
+- Success sound effect on minigame success (`default_success_sound`, defaults to `patience:success`)
+
+### 🛠️ Changed
+
+- Minigame penalty clicks are now repeatable instead of one-shot
+- Crafting sounds play as individual beats instead of a continuous loop, synced with hand swings and subtitles
+- Penalty clicks stop the crafting sound and freeze progress during the red flash feedback
+
+### 🐞 Fixed
+
+- Anvil crafting sound not playing on 1.20.1 (`block.heavy_core.break` replaced with `block.anvil.use`)
+
 ## 2.1.0: 2026-02-24
 
 ### 🧩 Added

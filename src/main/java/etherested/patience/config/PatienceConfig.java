@@ -20,6 +20,8 @@ public class PatienceConfig {
     private boolean enableSounds = true;
     private String defaultCraftingSound = "patience:crafting";
     private String defaultFinishSound = "patience:finish";
+    private String defaultPenaltySound = "patience:penalty";
+    private String defaultSuccessSound = "patience:success";
     private float globalTimeMultiplier = 1.0F;
 
     // experience
@@ -47,6 +49,7 @@ public class PatienceConfig {
     private float minigameChance = 0.5F;
     private float minigameWindowWidth = 0.15F;
     private float minigamePenaltyPercent = 0.25F;
+    private boolean minigamePenaltyCancelsCraft = true;
 
     // item sounds
     private Map<String, String> itemSounds = new HashMap<>();
@@ -90,6 +93,8 @@ public class PatienceConfig {
     public boolean isSoundsEnabled() { return enableSounds; }
     public String getDefaultCraftingSound() { return defaultCraftingSound; }
     public String getDefaultFinishSound() { return defaultFinishSound; }
+    public String getDefaultPenaltySound() { return defaultPenaltySound; }
+    public String getDefaultSuccessSound() { return defaultSuccessSound; }
     public float getGlobalTimeMultiplier() { return globalTimeMultiplier; }
 
     // experience getters
@@ -117,6 +122,7 @@ public class PatienceConfig {
     public float getMinigameChance() { return minigameChance; }
     public float getMinigameWindowWidth() { return minigameWindowWidth; }
     public float getMinigamePenaltyPercent() { return minigamePenaltyPercent; }
+    public boolean isMinigamePenaltyCancelsCraft() { return minigamePenaltyCancelsCraft; }
 
     // map getters
     public Map<String, String> getItemSounds() { return itemSounds; }
@@ -135,6 +141,8 @@ public class PatienceConfig {
     public void setEnableSounds(boolean enableSounds) { this.enableSounds = enableSounds; }
     public void setDefaultCraftingSound(String defaultCraftingSound) { this.defaultCraftingSound = defaultCraftingSound; }
     public void setDefaultFinishSound(String defaultFinishSound) { this.defaultFinishSound = defaultFinishSound; }
+    public void setDefaultPenaltySound(String defaultPenaltySound) { this.defaultPenaltySound = defaultPenaltySound; }
+    public void setDefaultSuccessSound(String defaultSuccessSound) { this.defaultSuccessSound = defaultSuccessSound; }
     public void setGlobalTimeMultiplier(float globalTimeMultiplier) { this.globalTimeMultiplier = globalTimeMultiplier; }
 
     // experience setters
@@ -162,6 +170,7 @@ public class PatienceConfig {
     public void setMinigameChance(float minigameChance) { this.minigameChance = minigameChance; }
     public void setMinigameWindowWidth(float minigameWindowWidth) { this.minigameWindowWidth = minigameWindowWidth; }
     public void setMinigamePenaltyPercent(float minigamePenaltyPercent) { this.minigamePenaltyPercent = minigamePenaltyPercent; }
+    public void setMinigamePenaltyCancelsCraft(boolean minigamePenaltyCancelsCraft) { this.minigamePenaltyCancelsCraft = minigamePenaltyCancelsCraft; }
 
     // map setters
     public void setItemSounds(Map<String, String> itemSounds) { this.itemSounds = itemSounds; }
@@ -195,6 +204,8 @@ public class PatienceConfig {
         json.addProperty("enable_sounds", enableSounds);
         json.addProperty("default_crafting_sound", defaultCraftingSound);
         json.addProperty("default_finish_sound", defaultFinishSound);
+        json.addProperty("default_penalty_sound", defaultPenaltySound);
+        json.addProperty("default_success_sound", defaultSuccessSound);
         json.addProperty("global_time_multiplier", globalTimeMultiplier);
 
         // experience
@@ -231,6 +242,7 @@ public class PatienceConfig {
         mini.addProperty("chance", minigameChance);
         mini.addProperty("window_width", minigameWindowWidth);
         mini.addProperty("penalty_percent", minigamePenaltyPercent);
+        mini.addProperty("penalty_cancels_craft", minigamePenaltyCancelsCraft);
         json.add("minigame", mini);
 
         // item sounds
@@ -274,6 +286,8 @@ public class PatienceConfig {
         c.enableSounds = getBool(json, "enable_sounds", true);
         c.defaultCraftingSound = getString(json, "default_crafting_sound", "patience:crafting");
         c.defaultFinishSound = getString(json, "default_finish_sound", "patience:finish");
+        c.defaultPenaltySound = getString(json, "default_penalty_sound", "patience:penalty");
+        c.defaultSuccessSound = getString(json, "default_success_sound", "patience:success");
         c.globalTimeMultiplier = getFloat(json, "global_time_multiplier", 1.0F);
 
         // experience
@@ -315,6 +329,7 @@ public class PatienceConfig {
             c.minigameChance = getFloat(mini, "chance", 0.5F);
             c.minigameWindowWidth = getFloat(mini, "window_width", 0.15F);
             c.minigamePenaltyPercent = getFloat(mini, "penalty_percent", 0.25F);
+            c.minigamePenaltyCancelsCraft = getBool(mini, "penalty_cancels_craft", true);
         }
 
         // item sounds

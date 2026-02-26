@@ -22,7 +22,7 @@ public class CraftingSoundInstance extends AbstractTickableSoundInstance {
 
     public CraftingSoundInstance(SoundEvent soundEvent) {
         super(soundEvent, SoundSource.PLAYERS, SoundInstance.createUnseededRandom());
-        this.looping = true;
+        this.looping = false;
         this.delay = 0;
         this.volume = 1.0F;
         this.pitch = randomizePitch();

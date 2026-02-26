@@ -17,6 +17,24 @@
     ],
     "subtitle": "subtitles.patience.finish"
   },
+  "penalty": {
+    "sounds": [
+      {
+        "name": "minecraft:block.chain.hit",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.patience.penalty"
+  },
+  "success": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.experience_orb.pickup",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.patience.success"
+  },
   "smithing_table": {
     "sounds": [
       {
@@ -29,7 +47,7 @@
   "anvil": {
     "sounds": [
       {
-        "name": "minecraft:block.heavy_core.break",
+        "name": "minecraft:block.anvil.use",
         "type": "event"
       }
     ],

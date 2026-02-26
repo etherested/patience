@@ -38,6 +38,14 @@ class PatienceClothConfigBuilder {
                 .setDefaultValue("patience:finish")
                 .setSaveConsumer(config::setDefaultFinishSound)
                 .build());
+        general.addEntry(entry.startStrField(Component.translatable("patience.config.default_penalty_sound"), config.getDefaultPenaltySound())
+                .setDefaultValue("patience:penalty")
+                .setSaveConsumer(config::setDefaultPenaltySound)
+                .build());
+        general.addEntry(entry.startStrField(Component.translatable("patience.config.default_success_sound"), config.getDefaultSuccessSound())
+                .setDefaultValue("patience:success")
+                .setSaveConsumer(config::setDefaultSuccessSound)
+                .build());
         general.addEntry(entry.startFloatField(Component.translatable("patience.config.global_time_multiplier"), config.getGlobalTimeMultiplier())
                 .setDefaultValue(1.0F)
                 .setMin(0.0F)
@@ -146,6 +154,10 @@ class PatienceClothConfigBuilder {
                 .setMin(0.0F)
                 .setMax(1.0F)
                 .setSaveConsumer(config::setMinigamePenaltyPercent)
+                .build());
+        minigame.addEntry(entry.startBooleanToggle(Component.translatable("patience.config.minigame_penalty_cancels_craft"), config.isMinigamePenaltyCancelsCraft())
+                .setDefaultValue(true)
+                .setSaveConsumer(config::setMinigamePenaltyCancelsCraft)
                 .build());
 
         return builder.build();

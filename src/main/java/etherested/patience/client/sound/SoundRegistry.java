@@ -32,6 +32,14 @@ public final class SoundRegistry {
     public static final Supplier<SoundEvent> FINISH = SOUNDS.register("finish",
             () -> SoundEvent.createVariableRangeEvent(
                     ResourceLocation.fromNamespaceAndPath(Patience.MODID, "finish")));
+
+    public static final Supplier<SoundEvent> PENALTY = SOUNDS.register("penalty",
+            () -> SoundEvent.createVariableRangeEvent(
+                    ResourceLocation.fromNamespaceAndPath(Patience.MODID, "penalty")));
+
+    public static final Supplier<SoundEvent> SUCCESS = SOUNDS.register("success",
+            () -> SoundEvent.createVariableRangeEvent(
+                    ResourceLocation.fromNamespaceAndPath(Patience.MODID, "success")));
     //?} else if (forge) {
     /*public static final DeferredRegister<SoundEvent> SOUNDS =
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Patience.MODID);
@@ -43,6 +51,14 @@ public final class SoundRegistry {
     public static final RegistryObject<SoundEvent> FINISH = SOUNDS.register("finish",
             () -> SoundEvent.createVariableRangeEvent(
                     new ResourceLocation(Patience.MODID, "finish")));
+
+    public static final RegistryObject<SoundEvent> PENALTY = SOUNDS.register("penalty",
+            () -> SoundEvent.createVariableRangeEvent(
+                    new ResourceLocation(Patience.MODID, "penalty")));
+
+    public static final RegistryObject<SoundEvent> SUCCESS = SOUNDS.register("success",
+            () -> SoundEvent.createVariableRangeEvent(
+                    new ResourceLocation(Patience.MODID, "success")));
     *///?} else if (fabric && >=1.21) {
     /*public static final SoundEvent CRAFTING = SoundEvent.createVariableRangeEvent(
             ResourceLocation.fromNamespaceAndPath(Patience.MODID, "crafting"));
@@ -50,11 +66,21 @@ public final class SoundRegistry {
     public static final SoundEvent FINISH = SoundEvent.createVariableRangeEvent(
             ResourceLocation.fromNamespaceAndPath(Patience.MODID, "finish"));
 
+    public static final SoundEvent PENALTY = SoundEvent.createVariableRangeEvent(
+            ResourceLocation.fromNamespaceAndPath(Patience.MODID, "penalty"));
+
+    public static final SoundEvent SUCCESS = SoundEvent.createVariableRangeEvent(
+            ResourceLocation.fromNamespaceAndPath(Patience.MODID, "success"));
+
     public static void register() {
         Registry.register(BuiltInRegistries.SOUND_EVENT,
                 ResourceLocation.fromNamespaceAndPath(Patience.MODID, "crafting"), CRAFTING);
         Registry.register(BuiltInRegistries.SOUND_EVENT,
                 ResourceLocation.fromNamespaceAndPath(Patience.MODID, "finish"), FINISH);
+        Registry.register(BuiltInRegistries.SOUND_EVENT,
+                ResourceLocation.fromNamespaceAndPath(Patience.MODID, "penalty"), PENALTY);
+        Registry.register(BuiltInRegistries.SOUND_EVENT,
+                ResourceLocation.fromNamespaceAndPath(Patience.MODID, "success"), SUCCESS);
     }
     *///?} else {
     /*public static final SoundEvent CRAFTING = SoundEvent.createVariableRangeEvent(
@@ -63,11 +89,21 @@ public final class SoundRegistry {
     public static final SoundEvent FINISH = SoundEvent.createVariableRangeEvent(
             new ResourceLocation(Patience.MODID, "finish"));
 
+    public static final SoundEvent PENALTY = SoundEvent.createVariableRangeEvent(
+            new ResourceLocation(Patience.MODID, "penalty"));
+
+    public static final SoundEvent SUCCESS = SoundEvent.createVariableRangeEvent(
+            new ResourceLocation(Patience.MODID, "success"));
+
     public static void register() {
         Registry.register(BuiltInRegistries.SOUND_EVENT,
                 new ResourceLocation(Patience.MODID, "crafting"), CRAFTING);
         Registry.register(BuiltInRegistries.SOUND_EVENT,
                 new ResourceLocation(Patience.MODID, "finish"), FINISH);
+        Registry.register(BuiltInRegistries.SOUND_EVENT,
+                new ResourceLocation(Patience.MODID, "penalty"), PENALTY);
+        Registry.register(BuiltInRegistries.SOUND_EVENT,
+                new ResourceLocation(Patience.MODID, "success"), SUCCESS);
     }
     *///?}
 
@@ -84,6 +120,22 @@ public final class SoundRegistry {
         return FINISH.get();
         //?} else {
         /*return FINISH;
+        *///?}
+    }
+
+    public static SoundEvent penalty() {
+        //? if neoforge || forge {
+        return PENALTY.get();
+        //?} else {
+        /*return PENALTY;
+        *///?}
+    }
+
+    public static SoundEvent success() {
+        //? if neoforge || forge {
+        return SUCCESS.get();
+        //?} else {
+        /*return SUCCESS;
         *///?}
     }
 

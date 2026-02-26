@@ -2,6 +2,8 @@
   "command.patience.reload.success": "Patience config reloaded and synced to all players.",
   "subtitles.patience.crafting": "Crafting",
   "subtitles.patience.finish": "Item crafted",
+  "subtitles.patience.penalty": "Craft interrupted",
+  "subtitles.patience.success": "Minigame success",
   "subtitles.patience.smithing_table": "Smithing Table used",
   "subtitles.patience.anvil": "Anvil used",
   "subtitles.patience.grindstone": "Grindstone used",
@@ -25,6 +27,8 @@
   "patience.config.enable_sounds": "Enable Sounds",
   "patience.config.default_crafting_sound": "Default Crafting Sound",
   "patience.config.default_finish_sound": "Default Finish Sound",
+  "patience.config.default_penalty_sound": "Default Penalty Sound",
+  "patience.config.default_success_sound": "Default Success Sound",
   "patience.config.global_time_multiplier": "Global Time Multiplier",
   "patience.config.experience_multiplier": "Experience Multiplier",
   "patience.config.experience_base_speed": "Base Speed",
@@ -41,5 +45,6 @@
   "patience.config.minigame_enabled": "Enable Minigame",
   "patience.config.minigame_chance": "Minigame Chance",
   "patience.config.minigame_window_width": "Minigame Window Width",
-  "patience.config.minigame_penalty_percent": "Minigame Penalty Percent"
+  "patience.config.minigame_penalty_percent": "Minigame Penalty Percent",
+  "patience.config.minigame_penalty_cancels_craft": "Penalty Cancels Craft"
 }

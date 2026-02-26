@@ -19,7 +19,7 @@ Adds crafting time to your workstations — clicking the output slot starts a ti
 
 **Progress Decay** — When enabled, moving during a craft causes progress to drain instead of cancelling outright. Leftover progress from an interrupted craft also decays over time. When decay is disabled, any movement immediately cancels the craft and resets progress.
 
-**Minigame** — An optional skill check that can trigger mid-craft. A random section of the progress overlay is designated as the success zone. When progress reaches that zone, the overlay turns yellow — clicking the output slot during this completes the craft instantly. Missing it applies a time penalty. Green indicates success, red indicates failure.
+**Minigame** — An optional skill check that can trigger mid-craft. A random section of the progress overlay is designated as the success zone. When progress reaches that zone, the overlay turns yellow — clicking the output slot during this completes the craft instantly. Missing it applies a time penalty. Clicking the output slot early when no minigame zone is active also applies a penalty. Green indicates success, red indicates failure.
 
 **Hunger** — Each completed craft adds exhaustion. When hunger drops below a threshold, crafting speed is penalized.
 
@@ -49,6 +49,8 @@ Config is stored in `patience.json` in the game's config directory. A GUI screen
 | `enable_sounds` | `true` | Play crafting and completion sounds |
 | `default_crafting_sound` | `patience:crafting` | Sound played during crafting |
 | `default_finish_sound` | `patience:finish` | Sound played on completion |
+| `default_penalty_sound` | `patience:penalty` | Sound played on penalty click |
+| `default_success_sound` | `patience:success` | Sound played on minigame success |
 | `global_time_multiplier` | `1.0` | Multiplier applied to all craft times (0.0 - 100.0) |
 
 </details>
@@ -108,6 +110,7 @@ Speed formula: `(attributeValue × baseSpeed) + (speedPerLevel × min(xpLevel, m
 | `minigame_chance` | `0.5` | Probability of triggering per craft (0.0 - 1.0) |
 | `minigame_window_width` | `0.15` | Success zone size as a fraction of total progress (0.01 - 0.5) |
 | `minigame_penalty_percent` | `0.25` | Progress lost on failure as a fraction of remaining (0.0 - 1.0) |
+| `minigame_penalty_cancels_craft` | `true` | Cancel the craft when penalty clicks reduce progress to zero |
 
 </details>
 
