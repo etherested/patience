@@ -62,10 +62,10 @@ Speed formula: `(attributeValue × baseSpeed) + (speedPerLevel × min(xpLevel, m
 
 | Setting | Default | Description |
 |---|---|---|
-| `experience_multiplier` | `1.0` | Overall crafting speed multiplier (0.0 - 100.0) |
-| `experience_base_speed` | `1.0` | Base speed before XP bonus (0.01 - 100.0) |
-| `experience_speed_per_level` | `0.02` | Bonus speed per XP level (0.0 - 10.0) |
-| `experience_max_level_cap` | `200` | Levels above this are ignored (0 - 30000) |
+| `multiplier` | `1.0` | Overall crafting speed multiplier (0.0 - 100.0) |
+| `base_speed` | `1.0` | Base speed before XP bonus (0.01 - 100.0) |
+| `speed_per_level` | `0.02` | Bonus speed per XP level (0.0 - 10.0) |
+| `max_level_cap` | `200` | Levels above this are ignored (0 - 30000) |
 
 </details>
 
@@ -74,8 +74,8 @@ Speed formula: `(attributeValue × baseSpeed) + (speedPerLevel × min(xpLevel, m
 
 | Setting | Default | Description |
 |---|---|---|
-| `decay_enabled` | `true` | Moving drains progress instead of cancelling the craft |
-| `decay_rate` | `2.0` | Progress lost per tick while moving or idle (0.0 - 100.0) |
+| `enabled` | `true` | Moving drains progress instead of cancelling the craft |
+| `rate` | `2.0` | Progress lost per tick while moving or idle (0.0 - 100.0) |
 
 </details>
 
@@ -84,8 +84,8 @@ Speed formula: `(attributeValue × baseSpeed) + (speedPerLevel × min(xpLevel, m
 
 | Setting | Default | Description |
 |---|---|---|
-| `screen_shake_enabled` | `false` | Camera shake during crafting |
-| `screen_shake_intensity` | `0.5` | Shake strength (0.0 - 5.0) |
+| `enabled` | `false` | Camera shake during crafting |
+| `intensity` | `0.5` | Shake strength (0.0 - 5.0) |
 
 </details>
 
@@ -94,10 +94,11 @@ Speed formula: `(attributeValue × baseSpeed) + (speedPerLevel × min(xpLevel, m
 
 | Setting | Default | Description |
 |---|---|---|
-| `hunger_exhaustion_cost` | `0.1` | Exhaustion added per completed craft (0.0 - 40.0) |
-| `hunger_penalty_enabled` | `true` | Slow crafting at low hunger |
-| `hunger_threshold` | `6` | Hunger level that triggers the penalty (0 - 20) |
-| `hunger_penalty_multiplier` | `0.5` | Speed multiplier when below threshold (0.0 - 10.0) |
+| `enabled` | `true` | Enable hunger exhaustion and speed penalty |
+| `exhaustion_cost` | `0.1` | Exhaustion added per completed craft (0.0 - 40.0) |
+| `penalty_enabled` | `true` | Slow crafting at low hunger |
+| `threshold` | `6` | Hunger level that triggers the penalty (0 - 20) |
+| `penalty_multiplier` | `0.5` | Speed multiplier when below threshold (0.0 - 10.0) |
 
 </details>
 
@@ -106,11 +107,11 @@ Speed formula: `(attributeValue × baseSpeed) + (speedPerLevel × min(xpLevel, m
 
 | Setting | Default | Description |
 |---|---|---|
-| `minigame_enabled` | `true` | Enable the skill-check minigame |
-| `minigame_chance` | `0.5` | Probability of triggering per craft (0.0 - 1.0) |
-| `minigame_window_width` | `0.15` | Success zone size as a fraction of total progress (0.01 - 0.5) |
-| `minigame_penalty_percent` | `0.25` | Progress lost on failure as a fraction of remaining (0.0 - 1.0) |
-| `minigame_penalty_cancels_craft` | `true` | Cancel the craft when penalty clicks reduce progress to zero |
+| `enabled` | `true` | Enable the skill-check minigame |
+| `chance` | `0.5` | Probability of triggering per craft (0.0 - 1.0) |
+| `window_width` | `0.15` | Success zone size as a fraction of total progress (0.01 - 0.5) |
+| `penalty_percent` | `0.25` | Progress lost on failure as a fraction of remaining (0.0 - 1.0) |
+| `penalty_cancels_craft` | `true` | Cancel the craft when penalty clicks reduce progress to zero |
 
 </details>
 
