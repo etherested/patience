@@ -22,7 +22,9 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${fabricLoaderVersion}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabricApiVersion}"
     modCompileOnly "me.shedaniel.cloth:cloth-config-fabric:${clothConfigVersion}"
+    modRuntimeOnly "me.shedaniel.cloth:cloth-config-fabric:${clothConfigVersion}"
     modCompileOnly "com.terraformersmc:modmenu:${modMenuVersion}"
+    modRuntimeOnly "com.terraformersmc:modmenu:${modMenuVersion}"
 }
 
 loom {

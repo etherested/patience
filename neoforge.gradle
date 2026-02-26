@@ -19,6 +19,7 @@ def packFormat = project.property('packFormat')
 
 dependencies {
     compileOnly "me.shedaniel.cloth:cloth-config-neoforge:${clothConfigVersion}"
+    runtimeOnly "me.shedaniel.cloth:cloth-config-neoforge:${clothConfigVersion}"
 }
 
 neoForge {

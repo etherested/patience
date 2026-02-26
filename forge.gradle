@@ -59,6 +59,7 @@ minecraft {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}"
     compileOnly "me.shedaniel.cloth:cloth-config-forge:${clothConfigVersion}"
+    runtimeOnly fg.deobf("me.shedaniel.cloth:cloth-config-forge:${clothConfigVersion}")
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 }
 
