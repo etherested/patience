@@ -97,9 +97,9 @@ Speed formula: `(attributeValue × baseSpeed) + (speedPerLevel × min(xpLevel, m
 |---|---|---|
 | `enabled` | `true` | Enable hunger exhaustion and speed penalty |
 | `exhaustion_cost` | `0.1` | Exhaustion added per completed craft (0.0 - 40.0) |
-| `penalty_enabled` | `true` | Slow crafting at low hunger |
-| `threshold` | `6` | Hunger level that triggers the penalty (0 - 20) |
-| `penalty_multiplier` | `0.5` | Speed multiplier when below threshold (0.0 - 10.0) |
+| `penalty.enabled` | `true` | Slow crafting at low hunger |
+| `penalty.threshold` | `6` | Hunger level that triggers the penalty (0 - 20) |
+| `penalty.multiplier` | `0.5` | Speed multiplier when below threshold (0.0 - 10.0) |
 
 </details>
 

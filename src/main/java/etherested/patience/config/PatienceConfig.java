@@ -239,9 +239,11 @@ public class PatienceConfig {
         JsonObject hunger = new JsonObject();
         hunger.addProperty("enabled", hungerEnabled);
         hunger.addProperty("exhaustion_cost", hungerExhaustionCost);
-        hunger.addProperty("penalty_enabled", hungerPenaltyEnabled);
-        hunger.addProperty("threshold", hungerThreshold);
-        hunger.addProperty("penalty_multiplier", hungerPenaltyMultiplier);
+        JsonObject hungerPenalty = new JsonObject();
+        hungerPenalty.addProperty("enabled", hungerPenaltyEnabled);
+        hungerPenalty.addProperty("threshold", hungerThreshold);
+        hungerPenalty.addProperty("multiplier", hungerPenaltyMultiplier);
+        hunger.add("penalty", hungerPenalty);
         json.add("hunger", hunger);
 
         // minigame
@@ -327,9 +329,12 @@ public class PatienceConfig {
         if (hunger != null) {
             c.hungerEnabled = getBool(hunger, "enabled", true);
             c.hungerExhaustionCost = getFloat(hunger, "exhaustion_cost", 0.1F);
-            c.hungerPenaltyEnabled = getBool(hunger, "penalty_enabled", true);
-            c.hungerThreshold = getInt(hunger, "threshold", 6);
-            c.hungerPenaltyMultiplier = getFloat(hunger, "penalty_multiplier", 0.5F);
+            JsonObject hungerPenalty = getObject(hunger, "penalty");
+            if (hungerPenalty != null) {
+                c.hungerPenaltyEnabled = getBool(hungerPenalty, "enabled", true);
+                c.hungerThreshold = getInt(hungerPenalty, "threshold", 6);
+                c.hungerPenaltyMultiplier = getFloat(hungerPenalty, "multiplier", 0.5F);
+            }
         }
 
         // minigame
