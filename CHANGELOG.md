@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2.2.1: 2026-02-26
+
 ### 🧩 Added
 
 - `hunger_enabled` option to toggle the entire hunger system (default: `true`)
