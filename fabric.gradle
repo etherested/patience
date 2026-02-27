@@ -28,6 +28,9 @@ dependencies {
 }
 
 loom {
+    mixin {
+        defaultRefmapName = "${modId}.refmap.json"
+    }
     runs {
         client {
             ideConfigGenerated true
