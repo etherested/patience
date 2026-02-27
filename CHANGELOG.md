@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2.2.2: 2026-02-27
+
 ### 🛠️ Changed
 
 - Fabric API now listed as required dependency on Modrinth and CurseForge
