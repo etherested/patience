@@ -96,6 +96,7 @@ extensions.configure<com.modrinth.minotaur.ModrinthExtension> {
     if (loader == "fabric") loaders.add("quilt")
     changelog.set(changelogContent)
     dependencies {
+        if (loader == "fabric") required.project("fabric-api")
         optional.project("cloth-config")
         optional.project("modmenu")
         optional.project("emi")
@@ -124,6 +125,7 @@ tasks.register<net.darkhax.curseforgegradle.TaskPublishCurseForge>("curseforge")
     mainFile.addEnvironment("Server")
     mainFile.changelog = changelogContent
     mainFile.changelogType = "markdown"
+    if (loader == "fabric") mainFile.addRequired("fabric-api")
     mainFile.addOptional("cloth-config")
     mainFile.addOptional("modmenu")
     mainFile.addOptional("emi")
