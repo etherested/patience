@@ -3,12 +3,12 @@ plugins {
     `maven-publish`
     id("dev.kikugie.stonecutter")
     id("net.neoforged.moddev") version "2.0.140" apply false
-    id("fabric-loom") version "1.9-SNAPSHOT" apply false
-    id("net.minecraftforge.gradle") version "[6.0.24,6.2)" apply false
+    id("fabric-loom") version "1.9.2" apply false
+    id("net.minecraftforge.gradle") version "6.0.47" apply false
     id("org.parchmentmc.librarian.forgegradle") version "1.+" apply false
     id("org.spongepowered.mixin") version "0.7-SNAPSHOT" apply false
-    id("com.modrinth.minotaur") version "2.+" apply false
-    id("net.darkhax.curseforgegradle") version "1.1.+" apply false
+    id("com.modrinth.minotaur") version "2.8.10" apply false
+    id("net.darkhax.curseforgegradle") version "1.1.28" apply false
 }
 
 val modId: String by project
