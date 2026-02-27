@@ -125,7 +125,7 @@ tasks.register<net.darkhax.curseforgegradle.TaskPublishCurseForge>("curseforge")
     mainFile.addEnvironment("Server")
     mainFile.changelog = changelogContent
     mainFile.changelogType = "markdown"
-    if (loader == "fabric") mainFile.addRequired("fabric-api")
+    if (loader == "fabric") mainFile.addRequirement("fabric-api")
     mainFile.addOptional("cloth-config")
     mainFile.addOptional("modmenu")
     mainFile.addOptional("emi")
