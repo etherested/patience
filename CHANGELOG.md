@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+### 🛠️ Changed
+
+- Fabric API now listed as required dependency on Modrinth and CurseForge
+
+### 🐞 Fixed
+
+- Crash on startup on Fabric due to missing mixin refmap
+
 ## 2.2.1: 2026-02-26
 
 ### 🧩 Added
