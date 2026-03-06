@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### 🐞 Fixed
+
+- Server crash on NeoForge and Forge caused by client-only classes loading on dedicated servers
+
 ## 2.2.2: 2026-02-27
 
 ### 🛠️ Changed

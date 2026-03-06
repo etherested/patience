@@ -3,6 +3,7 @@ package etherested.patience;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import etherested.patience.config.PatienceConfigScreen;
+import etherested.patience.platform.PlatformHelper;
 
 //? if neoforge {
 import net.neoforged.bus.api.IEventBus;
@@ -49,11 +50,13 @@ public class Patience
         AttributeRegistry.ATTRIBUTES.register(modEventBus);
         modEventBus.addListener(NetworkHandler::register);
 
-        CraftingHandler.initialize();
+        if (PlatformHelper.isClient()) {
+            CraftingHandler.initialize();
 
-        if (PatienceConfigScreen.isAvailable()) {
-            modContainer.registerExtensionPoint(IConfigScreenFactory.class,
-                    (container, screen) -> PatienceConfigScreen.create(screen));
+            if (PatienceConfigScreen.isAvailable()) {
+                modContainer.registerExtensionPoint(IConfigScreenFactory.class,
+                        (container, screen) -> PatienceConfigScreen.create(screen));
+            }
         }
 
         LOGGER.info("patience mod initialized");
@@ -65,12 +68,14 @@ public class Patience
         AttributeRegistry.ATTRIBUTES.register(modEventBus);
         NetworkHandler.register();
 
-        CraftingHandler.initialize();
+        if (PlatformHelper.isClient()) {
+            CraftingHandler.initialize();
 
-        if (PatienceConfigScreen.isAvailable()) {
-            ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
-                    () -> new ConfigScreenHandler.ConfigScreenFactory(
-                            (mc, screen) -> PatienceConfigScreen.create(screen)));
+            if (PatienceConfigScreen.isAvailable()) {
+                ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
+                        () -> new ConfigScreenHandler.ConfigScreenFactory(
+                                (mc, screen) -> PatienceConfigScreen.create(screen)));
+            }
         }
 
         LOGGER.info("patience mod initialized");
